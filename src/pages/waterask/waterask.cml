@@ -1,0 +1,186 @@
+<template>
+<page title="水位查询">
+  <view class="watertime">
+    七天水位情况
+    <echart class="echart" name="七天水位情况"></echart>
+  </view>
+  <view class="normal-title">
+    <row justify="space-between">
+      <col><text>水位数据</text></col>
+    </row>
+  </view> 
+  <find c-bind:search="handleSearch"></find> 
+  <view class="titleBox nopadding">
+    <row align="middle">
+      <col c-bind:tap = "sort">
+        <view class="title"><text>按时间</text><image src="{{imgDownSrc}}"></image></view>
+      </col>
+      <col c-bind:tap = "sort">
+        <view class="title blue"><text>按类型</text><image src="{{imgDownSrc}}"></image></view>
+      </col>
+      <col c-bind:tap = "sort">
+        <view class="title"><text>按高度</text><image src="{{imgDownSrc}}"></image></view>
+      </col>
+    </row>
+  </view>
+  <view class="titleBox" c-for="{{waterList}}" c-for-index="index" c-for-item="item">
+    <row align="middle" c-bind:tap="navigateUrl(item.id)">
+      <col>
+        <view class="title newset"><text>{{item.time}}</text></view>
+      </col>
+      <col>
+        <view class="title"><text>{{item.type}}</text></view>
+      </col>
+      <col>
+        <view class="title"><text>{{item.height}}</text></view>
+      </col>
+
+      <col c-if="{{item.status == '关闭'}}">
+        <view class="imgNotice"><image src="{{imgcloseSrc}}"></image></view>
+      </col>
+      <col c-else-if="{{item.status == '异常'}}">
+         <view class="imgNotice"><image src="{{imgoddSrc}}"></image></view>
+      </col>
+      <col c-else-if="{{item.status == '正常'}}">
+        <view class="imgNotice"><image src="{{imgnormalSrc}}"></image></view>
+      </col>
+
+    </row>
+
+  </view>
+</page>
+</template>
+
+<script>
+import cml from 'chameleon-api';
+class Waterask   {
+
+  data = {
+    imgWaterSrc: require('../../assets/images/waterimg.jpg'),
+    imgDownSrc: require('../../assets/images/down.png'),
+    imgcloseSrc: require('../../assets/images/close.png'),
+    imgoddSrc: require('../../assets/images/odd.png'),
+    imgnormalSrc: require('../../assets/images/normal.png'),
+    imgSoSrc: require('../../assets/images/soso.png'),
+    dataList: [],
+    keyValue: '',
+    flag: true
+  }
+
+  computed = {
+    waterList(){
+      let keyValue = this.keyValue
+      let t = [];
+      this.dataList.forEach((item, index) => {
+        let time = item.time || '';
+        let type = item.type || '';
+        let h = item.height || '';
+        let status = item.status || '';
+        if (time.indexOf(keyValue)>-1 || type.indexOf(keyValue)>-1 || h.indexOf(keyValue)>-1 || status.indexOf(keyValue)>-1) {
+          t.push(item);
+        }
+      })
+      return t;
+    }
+  }
+
+  watch  = {
+  }
+
+  methods = {
+    handleSearch(e){
+      let keyValue = e.detail;
+      this.keyValue = keyValue || '';
+    },
+    loadList(){
+      let that = this;
+      cml.get({
+        url: '/smallapp/mock/waterLevelList.json'
+      }).then(res => {
+        try{
+          res = JSON.parse(res)
+        }catch(e){}
+        
+        if (res.code == 0) {
+          const data = res.data;
+          that.dataList = data;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    up(x,y){
+      return x.time-y.time || x.type-y.type || x.height-y.height;
+    },
+    down(x,y){
+      return y.time-x.time || y.type-x.type || y.height-x.height;
+    },
+    sort(){
+      this.flag = (this.flag)? false : true;
+      let data = this.dataList;
+      if(this.flag){
+        this.dataList = data.sort(this.up);
+      }else{
+        this.dataList = data.sort(this.down);
+      }
+    },
+    navigateUrl(id){
+      cml.navigateTo({
+        "path": "/pages/waterdetails/waterdetails",
+        query: {
+          id: id
+        }
+      })
+    }
+  }
+
+  created() {
+    this.loadList();
+  }
+}
+
+export default new Waterask();
+</script>
+
+<style>
+.echart{
+  height: 335cpx;
+  width: 750cpx;
+}
+.normal-title{padding:10cpx 30cpx;background:#f2f2f2}
+.normal-title text{font-size:26cpx;color:#666;}
+
+.titleBox{border-bottom:1px solid #efefef;padding:15cpx 0;}
+.nopadding{padding:0}
+.titleBox .title{width:200cpx;height:80cpx;align-items:center;justify-content:center;flex-direction:row}
+.titleBox .newset{flex-direction:column}
+.titleBox .title image{width:48cpx;height:48cpx;position:absolute;top:19cpx;right:12cpx;}
+.titleBox .imgNotice {position:absolute;top:25cpx;right:20cpx;width:84cpx;height:60cpx;align-items:center;justify-content:center;}
+.titleBox .imgNotice image{width:84cpx;}
+.titleBox text{font-size:28cpx;color:#333;}
+.oddnormal text{color:red}
+.titleBox .blue text{color:#009bdb}
+
+.search{padding:24cpx;flex-direction:row;justify-content:space-between;align-items:center;flex:1;}
+.search .search-input input{font-size:28cpx!important;padding: 0 80cpx !important;background:#efefef!important;border-radius:100rpx !important;border:0px solid #d3d3d3!important;width:600cpx; }
+.search .iconbtn {position:absolute;top:19cpx;}
+.search .icon-left {left:28cpx;opacity: 0.7;}
+.search .icon-right {right:30cpx;}
+.search .iconbtn image{width:48cpx;height:48cpx;}
+.search .searchbtn{padding:20cpx;}
+.search .searchbtn text{font-size:32cpx;color:#009bdb}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {
+      "echart": "/components/echart/echart",
+      "find": "components/find/find",
+      "c-picker": "cml-ui/components/c-picker/c-picker"
+    }
+  },
+  "wx": {
+  }
+}
+</script>

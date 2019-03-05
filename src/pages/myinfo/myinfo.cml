@@ -1,0 +1,108 @@
+<template>
+<page title="人员信息">
+    <view>
+      <view class="aboutBox"><image class="aboutimg" src="{{imgaboutSrc}}"></image></view>
+      <view class="koon"></view>
+      <view class="">
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">工号</text></col>     
+            <col class=""><text class="text-set">24706</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">姓名</text></col>     
+            <col class=""><text class="text-set">linmxian</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">性别</text></col>     
+            <col class=""><text class="text-set">女</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">所属部门</text></col>     
+            <col class=""><text class="text-set">技术部</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">所属岗位</text></col>     
+            <col class=""><text class="text-set">网页设计</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">身份证</text></col>     
+            <col class=""><text class="text-set">350322199011281234</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">联系电话</text></col>     
+            <col class=""><text class="text-set">15860835376</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">邮箱</text></col>     
+            <col class=""><text class="text-set">344155286@qq.com</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">QQ</text></col>     
+            <col class=""><text class="text-set">344155286</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text class="text-set color666">注册时间</text></col>     
+            <col class=""><text class="text-set">2019-01-10 11:00:00</text></col>     
+          </row>
+      </view> 
+   </view>
+</page>
+</template>
+
+<script>
+
+class Mycenter   {
+
+  data = {
+    imgaboutSrc: require('../../assets/images/iconfirst.png'),
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  } 
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Mycenter();
+</script>
+<style>
+.koon{background:#f2f2f2;height:20cpx}
+.aboutimg{width:240cpx;height:240cpx;}
+.aboutBox{justify-content:center;align-items:center;}
+.textset{padding:10cpx 30cpx;font-size:28cpx;line-height:52cpx;text-indent:2em}
+.listBox {padding:20rpx 0;margin:0 30cpx;border-bottom:1cpx solid #efefef;}
+.text-set{font-size:28cpx;color:#333;}
+.color666{color:#666;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+  }
+}
+</script>

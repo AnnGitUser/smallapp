@@ -1,0 +1,68 @@
+<template>
+  <view class="search">
+    <view class="search-input">
+      <input placeholder="请输入关键字" value="{{value}}" c-bind:input="inputHandle" c-bind:blur="search"></input>
+      <view class="iconbtn icon-left"><image src="{{imgSoSrc}}"></image></view>
+    </view>
+    <view class="searchbtn" c-bind:tap="search"><text>搜索</text></view>
+  </view>
+</template>
+
+<script>
+
+class Find {
+
+  data = {
+    imgSoSrc: require('../../assets/images/soso.png')
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+     search(){
+      this.$cmlEmit('search', this.value);
+    },
+    inputHandle(e) {
+      this.value = e.detail.value;
+    }
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Find();
+</script>
+<style>
+.search{padding:24cpx;flex-direction:row;justify-content:space-between;align-items:center;flex:1;}
+.search .search-input input{font-size:28cpx!important;padding: 0 80cpx !important;background:#efefef!important;border-radius:100rpx !important;border:0px solid #d3d3d3!important;width:600cpx; }
+.search .iconbtn {position:absolute;top:19cpx;}
+.search .icon-left {left:28cpx;opacity: 0.7;}
+.search .icon-right {right:30cpx;}
+.search .iconbtn image{width:48cpx;height:48cpx;}
+.search .searchbtn{padding:20cpx;}
+.search .searchbtn text{font-size:32cpx;color:#009bdb}
+
+</style>
+<script cml-type="json">
+{}
+</script>

@@ -1,0 +1,241 @@
+<template>
+  <page title="设备远程监控">
+    <view class="mainBox">      
+      <view>
+        <se c-bind:search="handleSearch"></se>
+        <view><image class="toolimg" src="{{imgtoolSrc}}"></image></view>
+        <view class="tabtitle">
+          <c-tab tabs="{{tabs}}"
+          c-bind:tabclick="handleTabTap"
+          active-label="{{activeLabel}}"
+          inline="{{false}}">
+          </c-tab>
+        </view>
+        <c-tab-pane tabs="{{tabs}}"  active-label="{{activeLabel}}">
+          <c-tab-pane-item>
+            <view class="normal-title">
+              <row justify="space-between">
+                <col><text class="normal-title-text">列</text></col>
+                <col><text class="normal-title-text">指标名称</text></col>
+                <col><text class="normal-title-text">状态</text></col>
+              </row>
+            </view>
+            <view class="titleBox" c-for="{{monitorList['alarm']}}" c-for-index="idx" c-for-item="item">
+              <row justify="space-between">
+                <col>
+                  <view class="titleBox-title titleBox-newset"><text class="titleBox-text">{{item.id}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title"><text class="titleBox-text">{{item.name}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title"><text class="titleBox-text colorred">{{item.status}}</text></view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+          <c-tab-pane-item>
+            <view class="titleBox setnew">
+              <row justify="space-between">
+                <col>
+                  <view class="titleBox-title titleBox-newset widthsetleft"><text class="setnew-text">列</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="setnew-text">指标名称</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="setnew-text">指</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthsetright"><text class="setnew-text">状态</text></view>
+                </col>
+              </row>
+            </view>
+            <view class="titleBox" c-for="{{monitorList['product']}}" c-for-index="idx" c-for-item="item">
+              <row justify="space-between">
+                <col>
+                  <view class="titleBox-title titleBox-newset widthsetleft"><text class="titleBox-text">{{item.id}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="titleBox-text">{{item.name}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="titleBox-text">{{item.value}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthsetright"><text class="titleBox-text">{{item.status}}</text></view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+          <c-tab-pane-item>
+            <view class="titleBox setnew">
+              <row justify="space-between">
+                <col>
+                  <view class="titleBox-title titleBox-newset widthsetleft"><text class="setnew-text">列</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="setnew-text">控制点</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthsetright"><text class="setnew-text">状态</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="setnew-text">远程控制</text></view>
+                </col>
+              </row>
+            </view>
+            <view class="titleBox" c-for="{{monitorList['devControl']}}" c-for-index="idx" c-for-item="item">
+              <row justify="space-between">
+                <col>
+                  <view class="titleBox-title titleBox-newset widthsetleft"><text class="titleBox-text">{{item.id}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset"><text class="titleBox-text">{{item.name}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthsetright"><text class="titleBox-text">{{item.status}}</text></view>
+                </col>
+                <col>
+                  <view class="titleBox-title widthset">
+                    <switch
+                      checked="{{ item.status=='开'? true : false }}"
+                      c-bind:change="switchChange"
+                      >
+                    </switch>
+                  </view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+        </c-tab-pane>       
+      </view>
+    </view>
+  </page>
+</template>
+<script>
+import cml from 'chameleon-api'
+class Videodetails   {
+
+  data = {
+    imgSmSrc: require('../../assets/images/saoma.png'),
+    imgSoSrc: require('../../assets/images/soso.png'),
+    imgEditSrc: require('../../assets/images/daicl.png'),
+    imgokEditSrc: require('../../assets/images/yicl.png'),
+    imgtoolSrc: require('../../assets/images/bg.png'),
+    switchValue: false,
+    tabs:[{
+      label:'生产报警指标',
+    },{
+      label:"生产监测指标",
+    },{
+      label:"设备远程控制",
+    }],
+    activeLabel:'生产报警指标',
+    dataList: [],
+    keyValue: ''
+  }
+
+  computed = {
+    inputStyle() {
+      return 'font-size:28cpx;padding: 0 80cpx ;background:#efefef;border-radius:100cpx ;border:0cpx solid #d3d3d3;width:600cpx;';
+    },
+    monitorList(){
+      let keyValue = this.keyValue
+      let t = {};
+      if(!keyValue){
+        return this.dataList[0];
+      }else{
+        this.dataList.forEach((item, index) => {
+          let name = item.devName || '';
+          if (name == keyValue) {
+            t = item;
+          }
+        })
+        return t;
+      }
+    }
+  }
+
+  methods = {
+    handleTabTap(e){
+      this.activeLabel = e.detail.label;
+    }, 
+    switchChange (e) {
+      this.switchValue = e.detail.value
+    },
+    handleSearch(e){
+      let keyValue = e.detail;
+      this.keyValue = keyValue || '';
+    },
+    loadData(){
+      let that = this;
+      cml.get({
+        url: '/smallapp/mock/devMonitor'
+      }).then(res => {
+        try{
+          res = JSON.parse(res)
+        }catch(e){}
+        
+        if (res.code == 0) {
+          const data = res.data;
+          that.dataList = data;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+  created() {
+    this.loadData();
+  }
+}
+
+export default new Videodetails();
+</script>
+
+<style>
+.search{padding:24cpx;flex-direction:row;justify-content:space-between;align-items:center;flex:1;}
+.search-iconbtn {position:absolute;top:19cpx;}
+.search-icon-left {left:28cpx;opacity: 0.7;}
+.search-icon-right {right:30cpx;}
+.iconbtn-img{width:48cpx;height:48cpx;}
+.searchbtn{padding:20cpx;}
+.searchbtn-txt{font-size:32cpx;color:#009bdb}
+.toolimg{width:750cpx;height:335cpx;}
+
+.titleBox{border-bottom:1px solid #efefef;padding:15cpx 30cpx;}
+.nopadding{padding:0}
+.titleBox-title{height:65cpx;align-items:center;justify-content:center;flex-direction:row}
+.widthset{width:250cpx}
+.widthsetleft{width:100cpx}
+.widthsetright{width:150cpx}
+.titleBox-newset{flex-direction:column}
+.titleBox-text{font-size:28cpx;}
+.colorred{color:red}
+.colorblue{color:#009bdb}
+.color666{color:#666;}
+.normal-title{padding:15cpx 30cpx;color:#666;background:#f2f2f2;}
+.normal-title-text{font-size:26cpx;}
+.setnew{padding:0 30cpx;background:#f2f2f2;}
+.setnew-text{font-size:26cpx;color:#666;}
+
+
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents":{
+          "c-tab": "cml-ui/components/c-tab/c-tab",
+          "c-tab-pane": "cml-ui/components/c-tab-pane/c-tab-pane",
+          "c-tab-pane-item": "cml-ui/components/c-tab-pane-item/c-tab-pane-item",
+          "se": "/components/search/search"
+      }
+  },
+  "wx": {
+  }
+}
+</script>
+

@@ -1,0 +1,201 @@
+<template>
+<page title="欢迎登录">
+  <view class="loginBox">
+    <view class="loginbg"><image class="loginbg-img" style="{{boxImg}}" src="{{imageSrc}}"></image></view>
+    <view class="info">
+      <view  class="logo" >
+        <image class="logo-img"  src="{{logoSrc}}"></image>
+      </view>
+      <view class="listBox">
+        <view  class="inputBox">
+          <view class="iconset"><image class="icon-img" src="{{iconuserSrc}}"></image></view>
+          <input placeholder='用户名/手机号' c-style="{{inputStyle}}" c-model="{{userName}}"></input>
+        </view>
+        <view  class="inputBox">
+          <view class="iconset"><image class="icon-img" src="{{iconpowerSrc}}"></image></view>
+          <input placeholder='登录密码' c-style="{{inputStyle}}" c-model="{{password}}"></input>
+          <view class="icon-right"><image class="icon-right-img" src="{{iconseeSrc}}"></image></view>
+        </view>
+        <view  class="inputBox">
+          <c-toast duration="{{1000}}"
+            show="{{show}}"
+            c-bind:show="changeShow"
+            message="{{message}}"
+            mask="{{mask}}"></c-toast>
+          <button type="blue" text="确定"  btn-style='width:auto;background:#1983d1;' c-bind:tap="bindLogin"></button>
+        </view>
+        <view  class="inputBox topmarg">
+          <row justify="space-between">
+            <col>
+              <view><checkbox c-style="{{activestyle}}" disabled="{{keySave}}" label="记住密码" c-bind:tap="remPassword"></checkbox></view>
+            </col>
+            <col>
+              <view><text class="inputBox-text">忘记密码</text></view>
+            </col>
+          </row>          
+        </view>
+      </view>
+      <view class="foot"><view class="footext" ><text>中海创科技</text></view></view>
+    </view>
+  </view>
+</page>
+</template>
+
+<script>
+import cml from 'chameleon-api'
+import btoa from 'btoa';
+
+class Logindex   {
+
+  data = {
+    imageSrc: require('../../assets/images/loginbg.jpg'),
+    logoSrc: require('../../assets/images/loginlogo.png'),
+    iconuserSrc: require('../../assets/images/user.png'),
+    iconpowerSrc: require('../../assets/images/mima.png'),
+    iconseeSrc: require('../../assets/images/see.png'),
+    boxImg: '',
+    userName: '',
+    password: '',
+    keySave: false,
+    show: false,
+    message: "",
+    mask: false
+  }
+
+  computed = {
+    inputStyle() {
+      return 'padding:26cpx 90cpx ;font-size:32cpx;border:1cpx solid #d3d3d3;height:96cpx';
+    },
+    activestyle(){
+      return'border:1cpx solid #000;border-radius:30cpx;color:#000;';
+    } 
+  }
+
+  watch  = {
+  }
+
+  methods = {
+    changeShow(e) {
+      this.show = e.detail.value;
+    },
+    showLoading(msg) {
+      this.message = msg;
+      this.mask = true;
+      this.show = true;
+    },
+    remPassword(){
+      this.keySave = true;
+    },
+    bindLogin(){
+      let that = this;
+      if(!this.userName || !this.password){
+        cml.showToast({
+            message: "登录信息不能为空",
+            duration: 1000
+        });
+        return;
+      }
+
+      const data = {
+          username: this.userName,
+          password: this.password
+      };
+      
+      let url='https://iot.fdauto.com/iot/oauth/token';
+      let client=btoa('client:secret');
+
+      this.showLoading("玩命加载中...");
+      cml.post({
+        url: url,
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded', 
+          'Authorization': 'Basic ' + client
+        },
+        data: {
+          "grant_type": "password",
+          "scope": "read write",
+          "username": data.username,
+          "password": data.password
+        }
+      }).then(res => {
+        that.toMain(res);
+      }, err => {
+        console.log('请求失败');
+      });
+
+    },
+    toMain(res){
+      if(res.errcode=='0000' || res.errcode=='0001'){
+        this.showLoading(res.data.msg);
+        return;
+      }
+      if(res && res.access_token){
+        cml.setStorage('access_token', res.access_token);
+
+        cml.redirectTo({
+          "path": "/pages/applyindex/applyindex"
+        });
+      }
+      
+    }
+  }
+
+  beforeCreate() {
+    cml.getSystemInfo().then(info => {
+        console.log(info);
+        this.boxImg = 'height:'+info.viewportHeight+'cpx;width:'+info.viewportWidth+'cpx';
+    })
+  }
+
+  created() {
+
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Logindex();
+</script>
+
+<style>
+.loginbg{flex-direction:row;align-items:stretch;}
+.loginbg-img{width:750cpx;height:1183cpx}
+.info{position:fixed;top: 0;left: 0;right: 0;bottom: 0;}
+.logo {padding-top:52cpx;flex-direction:row;justify-content:center;}
+.logo-img{width:500cpx;height:350cpx;}
+.listBox{padding:0 85cpx;}
+.inputBox{margin-top:40cpx;}
+.topmarg{margin-top:20cpx;}
+.iconset{position:absolute;top:30cpx;left:28cpx;}
+.icon-img{width:45cpx;height:45cpx;}
+.icon-right{position:absolute;top:30cpx;;right:28cpx;}
+.icon-right-img{width:60cpx;height:45cpx;}
+.inputBox-text{color:#000;}
+.inputBox text{color:#000;}
+.foot{position:fixed;bottom:40cpx;left:0;justify-content:center;width:750cpx;}
+.footext{flex-direction:row;justify-content:center;margin-top:160;color:#000}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+      "usingComponents": {
+        "c-toast": "cml-ui/components/c-toast/c-toast"
+      },
+      "navigationBarTitleText": "登录",
+      "backgroundTextStyle": "dark",
+      "backgroundColor": "#E2E2E2"
+    }
+}
+</script>

@@ -1,0 +1,78 @@
+<template>
+  <view class="footer">
+    <row justify="space-around">
+      <col>
+      <view class="footer-text">
+        <image src="{{imageSrcone}}"></image><text>应用中心</text>
+      </view>
+      </col>
+      <col>
+      <view class="footer-text">
+        <image src="{{imageSrctwo}}"></image><text>任务中心</text>
+      </view>
+      </col>
+      
+      <col>
+      <view class="footer-text">
+        <image src="{{imageSrcthree}}"></image><text>我的</text>
+      </view>
+      </col>
+    </row>
+  </view>
+</template>
+
+<script>
+
+class Nav {
+
+  data = {
+    imageSrcone: require('../../assets/images/img1.png'),
+    imageSrctwo: require('../../assets/images/img2.png'),
+    imageSrcthree: require('../../assets/images/img4.png'),
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Nav();
+</script>
+<style>
+.footer {position:fixed;bottom:0;left:0;width:750cpx;font-size:24cpx;color:#818181;border-top:1px solid #ebebeb;background:#fff;}
+.footer .footer-text {padding:20cpx 15cpx;align-items: center;}
+.footer .footer-text text{font-size:28cpx;}
+.footer .footer-text image{width:50cpx;height:50cpx;margin-bottom:10cpx;}
+.footer .footer-text-center image{width:90cpx;height:90cpx;}
+
+</style>
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  }
+}
+</script>

@@ -1,0 +1,63 @@
+<template>
+<page title="二维码">
+    <view class="wxBox">
+      <view><image class="wximg" src="{{imgwxSrc}}"></image></view>
+      <text class="textset">关注官方微信</text>
+    </view>
+</page>
+</template>
+
+<script>
+
+class Mycenter   {
+
+  data = {
+    imgwxSrc: require('../../assets/images/weixin.jpg'),
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  } 
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Mycenter();
+</script>
+<style>
+.koon{background:#f2f2f2;height:20cpx}
+.wximg{width:430cpx;height:430cpx;}
+.wxBox{padding:30cpx;justify-content:center;align-items:center;}
+.textset{padding:20cpx 0;font-size:28cpx;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+  }
+}
+</script>

@@ -1,0 +1,96 @@
+<template>
+  <page title="视频监控">
+    <view class="mainBox">
+      <se c-bind:search="handleSearch"></se>
+
+      <view class="normal-title">
+        <row justify="space-between">
+          <col><text>功能清单{{text}}</text></col>
+        </row>
+      </view>
+
+      <list  
+      c-for="{{menuList}}" 
+      c-key="{{index}}"
+      index="{{item.index}}"
+      text="{{item.name}}"
+      src="{{item.url}}" ></list>
+    </view>
+  </page>
+</template>
+
+<script>
+import cml from 'chameleon-api';
+class Video   {
+
+  data = {
+    dataList: [],
+    keyValue: ''
+  }
+
+  computed = {
+    menuList(){
+      let keyValue = this.keyValue
+      let t = [];
+      this.dataList.forEach((item, index) => {
+        let name = item.name || '';
+        if (name.indexOf(keyValue)>-1) {
+          t.push(item);
+        }
+      })
+      return t;
+    }
+  }
+
+  methods = {
+    handleSearch(e){
+      let keyValue = e.detail;
+      this.keyValue = keyValue || '';
+    },
+    loadMenu(){
+      let that = this;
+      cml.get({
+        url: '/smallapp/mock/menuList.json'
+      }).then(res => {
+        try{
+          res = JSON.parse(res)
+        }catch(e){}
+        
+        if (res.code == 0) {
+          const data = res.data['spjk'];
+          that.dataList = data;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+  created() {
+    this.loadMenu();
+  }
+}
+
+export default new Video();
+</script>
+
+<style>
+.normal-title{padding:10cpx 30cpx;color:#666;background:#f2f2f2}
+.normal-title text{font-size:28cpx;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {
+      "se": "/components/search/search",
+      "list": "/components/list/list"
+    }
+  },
+  "wx": {
+    "navigationBarTitleText": "视频监控",
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#E2E2E2"
+  }
+}
+</script>

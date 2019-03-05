@@ -1,0 +1,200 @@
+<template>
+  <page title="任务中心">
+    <view class="mainBox">      
+      <view>
+        <view class="tabtitle">
+          <c-tab tabs="{{tabs}}"
+          c-bind:tabclick="handleTabTap"
+          active-label="{{activeLabel}}"
+          inline="{{false}}">
+          </c-tab>
+        </view>
+        <view class="search">
+          <view class="search-inputBox">
+            <input c-style="{{inputStyle}}" placeholder="请输入关键字"></input>
+            <view class="search-iconbtn search-icon-left"><image class="iconbtn-img" src="{{imgSoSrc}}"></image></view>
+          </view>
+          <view><text class="searchbtn-txt">搜索</text></view>
+        </view>
+        <view class="normal-title">
+          <row justify="space-between">
+            <col><text  class="normal-title-text">今日</text></col>
+          </row>
+        </view>
+        <c-tab-pane tabs="{{tabs}}"  active-label="{{activeLabel}}">
+          <c-tab-pane-item>
+          <view class="titleBox editBox">
+              <view class="editBox-imgset"><image class="editBox-img" src="{{imgEditSrc}}"></image></view>
+              <row  justify="space-between" >
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">预警处理</text>
+                    <text class="titleBox-txt">YJCL-190226-1001</text>
+                  </view>
+                </col>
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">1#抽水泵温度预警处理</text>
+                    <text class="titleBox-txt setcolortit">2019-2-26 11:48:00</text>
+                  </view>
+                </col>
+              </row>
+            </view>
+            <view class="titleBox editBox">
+              <view class="editBox-imgset"><image class="editBox-img" src="{{imgEditSrc}}"></image></view>
+              <row  justify="space-between" >
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">预警处理</text>
+                    <text class="titleBox-txt">YJCL-190226-1001</text>
+                  </view>
+                </col>
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">1#抽水泵温度预警处理</text>
+                    <text class="titleBox-txt setcolortit">2019-2-26 11:48:00</text>
+                  </view>
+                </col>
+              </row>
+            </view>
+            <view class="titleBox editBox">
+              <view class="editBox-imgset"><image class="editBox-img" src="{{imgEditSrc}}"></image></view>
+              <row  justify="space-between" >
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">预警处理</text>
+                    <text class="titleBox-txt">YJCL-190226-1001</text>
+                  </view>
+                </col>
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">1#抽水泵温度预警处理</text>
+                    <text class="titleBox-txt setcolortit">2019-2-26 11:48:00</text>
+                  </view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+          <c-tab-pane-item>
+            <view class="titleBox editBox">
+              <view class="editBox-imgset"><image class="editBox-img" src="{{imgokEditSrc}}"></image></view>
+              <row  justify="space-between" >
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">预警处理</text>
+                    <text class="titleBox-txt">YJCL-190226-1001</text>
+                  </view>
+                </col>
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">1#抽水泵温度预警处理</text>
+                    <text class="titleBox-txt setcolortit">2019-2-26 11:48:00</text>
+                  </view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+          <c-tab-pane-item>
+            <view class="titleBox">
+              <row  justify="space-between" >
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">预警处理</text>
+                    <text class="titleBox-txt">YJCL-190226-1001</text>
+                  </view>
+                </col>
+                <col>
+                  <view class="title newset">
+                    <text class="titleBox-txt">1#抽水泵温度预警处理</text>
+                    <text class="titleBox-txt setcolortit">2019-2-26 11:48:00</text>
+                  </view>
+                </col>
+              </row>
+            </view>
+          </c-tab-pane-item>
+        </c-tab-pane> 
+        <view class="normal-title">
+          <row justify="space-between">
+            <col><text class="normal-title-text">更早</text></col>
+          </row>
+        </view>       
+      </view>
+    </view>
+  </page>
+</template>
+
+<script>
+import cml from 'chameleon-api'
+class Videodetails   {
+
+  data = {
+    imgSmSrc: require('../../assets/images/saoma.png'),
+    imgSoSrc: require('../../assets/images/soso.png'),
+    imgEditSrc: require('../../assets/images/daicl.png'),
+    imgokEditSrc: require('../../assets/images/yicl.png'),
+    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+    state: '----',
+    tabs:[{
+      label:'待处理',
+    },{
+      label:"已处理",
+    },{
+      label:"已结束",
+    }],
+    activeLabel:'待处理',
+  }
+
+  computed = {
+    inputStyle() {
+      return 'font-size:28cpx;padding: 0 80cpx ;background:#efefef;border-radius:100cpx ;border:0cpx solid #d3d3d3;width:600cpx;';
+    },
+  }
+
+  watch  = {
+  }
+
+  methods = {
+    handleTabTap(e){
+      this.activeLabel = e.detail.label;
+    }
+  }
+}
+
+export default new Videodetails();
+</script>
+
+<style>
+.search{padding:24cpx;flex-direction:row;justify-content:space-between;align-items:center;flex:1;}
+.search-iconbtn {position:absolute;top:19cpx;}
+.search-icon-left {left:28cpx;opacity: 0.7;}
+.search-icon-right {right:30cpx;}
+.iconbtn-img{width:48cpx;height:48cpx;}
+.searchbtn{padding:20cpx;}
+.searchbtn-txt{font-size:32cpx;color:#009bdb}
+
+.normal-title{padding:10cpx 30cpx;color:#666;background:#f2f2f2}
+.normal-title-text{font-size:28cpx;}
+
+.tabtitle {border-bottom:1cpx solid #efefef;}
+
+.titleBox{border-bottom:1cpx solid #efefef;padding:15cpx;margin:0 20cpx}
+.titleBox-txt{font-size:26cpx;color:#333;margin:10cpx 0;}
+.setcolortit{color:#9b9b9b}
+.editBox{padding-left:80cpx;}
+.editBox-imgset{position:absolute;top:40cpx;left:10cpx;}
+.editBox-img{width:48cpx;height:48cpx;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents":{
+          "c-tab": "cml-ui/components/c-tab/c-tab",
+          "c-tab-pane": "cml-ui/components/c-tab-pane/c-tab-pane",
+          "c-tab-pane-item": "cml-ui/components/c-tab-pane-item/c-tab-pane-item"
+      }
+  },
+  "wx": {
+  }
+}
+</script>

@@ -1,0 +1,124 @@
+<template>
+<page title="我的">
+  <view class="mainBox">
+    <view>
+      <image class="bgimg" src="{{imgbgSrc}}"></image>
+      <view class="myinfo">
+        <row  justify="start" class="listBox-ul"><image src="{{myiconSrc}}" class="myicon-img"></image>
+          <col class=""><text class="myinfo-txt">linmxian工号24706</text><text class="myinfo-txt">网页设计</text></col>     
+        </row>
+        <view class="icon-right pos-top"><image src="{{myiconRight}}" class="icon-right-img"></image></view>
+      </view>
+    </view>
+    <view class="menu-container">  
+      <view class="menu-item">
+        <image src="{{menuimgone}}" class="menu-img"></image><text class="menu-text">我的任务</text>
+      </view>
+      <view class="menu-item">
+        <image src="{{menuimgtwo}}" class="menu-img"></image><text class="menu-text">我的信息</text>
+      </view>
+    </view>
+    <view class="koon"></view>
+    <view class="listBox">
+      <row  justify="start" class="listBox-ul"><image src="{{iconLeftone}}" class="icon-left-img"></image>
+        <col class=""><text class="list-txt">关于我们</text></col>     
+      </row>
+      <view class="icon-right"><image src="{{iconRight}}" class="icon-right-img"></image></view>
+    </view>
+    <view class="listBox">
+      <row  justify="start" class="listBox-ul"><image src="{{iconLeftwo}}" class="icon-left-img"></image>
+        <col class=""><text class="list-txt">二维码</text></col>     
+      </row>
+      <view class="icon-right"><image src="{{iconRight}}" class="icon-right-img"></image></view>
+    </view>
+    <view class="listBox">
+      <row  justify="start" class="listBox-ul"><image src="{{iconLefthree}}" class="icon-left-img"></image>
+        <col class=""><text class="list-txt">密码修改</text></col>     
+      </row>
+      <view class="icon-right"><image src="{{iconRight}}" class="icon-right-img"></image></view>
+    </view>
+    <view class="koon"></view>
+    <view class="listBox">
+      <row  justify="center">
+        <col class=""><text class="list-txt">退出系统</text></col>     
+      </row>
+    </view>
+
+  </view>
+</page>
+</template>
+
+<script>
+
+class Mycenter   {
+
+  data = {
+    imgbgSrc: require('../../assets/images/bg.png'),
+    myiconSrc: require('../../assets/images/iconfirst.png'),
+    menuimgone: require('../../assets/images/myrw.png'),
+    menuimgtwo: require('../../assets/images/myxx.png'),
+    iconRight: require('../../assets/images/right.png'),
+    myiconRight: require('../../assets/images/right-w.png'),
+    iconLeftone: require('../../assets/images/icon1.png'),
+    iconLeftwo: require('../../assets/images/icon2.png'),
+    iconLefthree: require('../../assets/images/icon3.png')
+  }
+
+  computed = {
+  }
+ 
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Mycenter();
+</script>
+<style>
+.koon{background:#f2f2f2;height:20cpx}
+.bgimg{width:750cpx;height:200cpx;}
+.menu-container {flex-direction:row;justify-content:flex-start;flex-wrap: wrap;}
+.menu-item{align-items:center;color:#333;padding:15cpx 0;font-size:26cpx;width:375cpx;}
+.menu-text{font-size:28cpx;}
+.menu-img { width:52cpx;height:52cpx;margin-bottom:15cpx}
+.listBox {padding:30rpx 0;margin:0 30cpx;border-bottom:1cpx solid #efefef;}
+.listBox-ul{padding-right:70cpx;}
+.list-txt{font-size:28cpx;color:#333;}
+.icon-right{opacity: 0.8;filter: alpha(opacity=80);position:absolute;top:10cpx;right:0cpx;width:80cpx;height:80cpx;justify-content:center;align-items:center;}
+.icon-right-img{width:40cpx;height:40cpx;}
+.icon-left-img{width:48cpx;height:48cpx;margin-right:15cpx}
+.myinfo{position:absolute;top:30cpx;left:30cpx;width:700cpx}
+.myicon-img{width:128cpx;height:128cpx;margin-right:20cpx;border-radius:200cpx;}
+.myinfo-txt{color:#fff;font-size:26cpx;margin:5cpx}
+.pos-top{top:20cpx;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+  }
+}
+</script>

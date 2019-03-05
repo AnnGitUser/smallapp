@@ -1,0 +1,123 @@
+{
+    "code": 0,
+    "data": {
+      "module": [
+          {
+            "name": "数据采集",
+            "url": "/pages/datainfo/datainfo",
+            "imgUrl": "http://192.168.7.46:8000/static/img/odd_7039a19.png",
+            "type": 0 
+          },
+          {
+            "name": "视频监控",
+            "url": "/pages/video/video",
+            "type": 0 
+          },
+          {
+            "name": "远程控制",
+            "url": "/pages/tool/tool",
+            "type": 0 
+          },
+          {
+            "name": "设备管理",
+            "url": "/pages/index/index",
+            "type": 0 
+          },
+          {
+            "name": "预警管理",
+            "url": "/pages/index/index",
+            "type": 0 
+          },
+          {
+            "name": "问题管理",
+            "url": "/pages/index/index",
+            "type": 0 
+          }
+      ],
+      "used": [
+            { 
+                "name": "水位查询",
+                "url": "/pages/waterask/waterask",
+                "type": 0
+            }
+      ],
+      "sjcj": [
+        { 
+            "name": "水位查询",
+            "url": "/pages/waterask/waterask",
+            "type": 0
+        },
+        { 
+            "name": "雨量查询",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "排水量查询",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "水质查询",
+            "url": "/pages/index/index",
+            "type": 0
+        }
+      ],
+      "spjk": [
+        { 
+            "name": "视频监控",
+            "url": "/pages/video/video",
+            "type": 0
+        }
+      ],
+      "yckz": [
+        { 
+            "name": "设备远程控制",
+            "url": "/pages/index/index",
+            "type": 0
+        }
+      ],
+      "sbgl": [
+        { 
+            "name": "设备台账",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "设备故障登记",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "设备故障查询",
+            "url": "/pages/index/index",
+            "type": 0
+        }
+      ],
+      "yjgl": [
+        { 
+            "name": "预警查询",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "预警设置",
+            "url": "/pages/index/index",
+            "type": 0
+        }
+      ],
+      "wtgl": [
+        { 
+            "name": "问题提交",
+            "url": "/pages/index/index",
+            "type": 0
+        },
+        { 
+            "name": "问题查询",
+            "url": "/pages/index/index",
+            "type": 0
+        }
+      ]
+    }
+  }
+  

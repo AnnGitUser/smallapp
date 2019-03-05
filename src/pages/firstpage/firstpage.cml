@@ -1,0 +1,76 @@
+<template>
+<page title="欢迎进入管控系统">
+  <view class="loginBox">
+    <view class="loginbg"><image style="{{boxImg}}" src="{{imageSrc}}" class="loginbg-img"></image></view>
+    <view class="info">
+      <view  class="logo" >
+        <image src="{{logoSrc}}" class="logo-img"></image>
+      </view>
+      <view class="foot"><view class="footext" ><text>中海创科技</text></view></view>
+    </view>
+  </view>
+</page>
+</template>
+
+<script>
+import cml from 'chameleon-api'
+
+class Logindex   {
+
+  data = {
+    imageSrc: require('../../assets/images/first.jpg'),
+    logoSrc: require('../../assets/images/loginlogo.png'),
+    boxImg: ''
+  }
+
+  beforeCreate() {
+    cml.getSystemInfo().then(info => {
+        console.log(info);
+        this.boxImg = 'height:'+info.viewportHeight+'cpx;width:'+info.viewportWidth+'cpx';
+    })
+  }
+
+  created() {
+    //每次打开页面，如果有token直接跳转到首页，否则重新登录
+    cml.getStorage('access_token').then((value)=>{
+       if(value){
+         setTimeout(()=>{
+            cml.redirectTo({
+              "path": "/pages/applyindex/applyindex"
+            });
+          }, 2000)
+       }else{
+         cml.removeStorage('access_token');
+         setTimeout(()=>{
+            cml.redirectTo({
+              "path": "/pages/logindex/logindex"
+            });
+          }, 2000)
+       }
+    },function(err){
+      console.log(err);
+    })
+  }
+}
+
+export default new Logindex();
+</script>
+
+<style>
+.loginbg{flex-direction:row;align-items:stretch;}
+.loginbg-img{width:750cpx;height:1183cpx}
+.info{position:fixed;top: 0;left: 0;right: 0;bottom: 0;}
+.logo {padding-top:200cpx;flex-direction:row;justify-content:center;}
+.logo-img{width:500cpx;height:350cpx;}
+.foot{position:fixed;bottom:40cpx;left:0;justify-content:center;width:750cpx;}
+.footext{flex-direction:row;justify-content:center;color:#99ccff}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+  },
+  "wx": {
+  }
+}
+</script>

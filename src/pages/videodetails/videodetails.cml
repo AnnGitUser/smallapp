@@ -1,0 +1,185 @@
+<template>
+  <page title="实时监控">
+    <view class="mainBox">
+      <se c-bind:search="handleSearch"></se>
+      <view class="normal-title">
+        <row justify="space-between">
+          <col><text class="normal-title-text">监控画面</text></col>
+        </row>
+      </view>
+      <view class="videoBox">
+        <video
+          class="video"
+          src="{{videoSrc}}"
+          autoplay="{{true}}"
+          controls="{{true}}"
+        >
+        </video>
+      </view>
+      <view>
+        <view class="tabtitle">
+          <c-tab tabs="{{tabs}}"
+          c-bind:tabclick="handleTabTap"
+          active-label="{{activeLabel}}"
+          inline="{{false}}">
+          </c-tab>
+        </view>
+        <c-tab-pane tabs="{{tabs}}"  active-label="{{activeLabel}}">
+          <c-tab-pane-item>
+            <view >
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">站点编号</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.siteNo}}</text></col>     
+              </row>
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">站点名称</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.siteName}}</text></col>     
+              </row>
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">站点类别</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.siteType}}</text></col>     
+              </row>
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">经度</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.longitude}}</text></col>     
+              </row>
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">维度</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.latitude}}</text></col>     
+              </row>
+              <row  justify="space-between" class="listBox">
+                <col class="settxtColor"><text class="txt-fontsize">站点维护人</text></col>     
+                <col ><text class="txt-fontsize">{{menuList.foperator}}</text></col>     
+              </row>
+            </view>
+          </c-tab-pane-item>
+          <c-tab-pane-item>
+            <view class="normal-title">
+              <row justify="space-between">
+                <col><text class="txt-fontsize">设备编号</text></col>
+                <col><text class="txt-fontsize">设备名称</text></col>
+              </row>
+            </view> 
+            <view >
+              <row  justify="space-between" class="listBox" c-for="{{menuList.devList}}" c-for-index="idx" c-for-item="item">
+                <col class="settxtColor"><text class="txt-fontsize">{{item.devNo}}</text></col>     
+                <col ><text class="txt-fontsize">{{item.devName}}</text></col>     
+              </row>
+            </view>
+          </c-tab-pane-item>
+        </c-tab-pane>
+      </view>
+    </view>
+  </page>
+</template>
+
+<script>
+import cml from 'chameleon-api'
+class Videodetails   {
+
+  data = {
+    imgSmSrc: require('../../assets/images/saoma.png'),
+    imgSoSrc: require('../../assets/images/soso.png'),
+    videoSrc: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400',
+    state: '----',
+    tabs:[{
+      label:'监控点信息',
+    },{
+      label:"设备信息",
+    }],
+    activeLabel:'监控点信息',
+    dataList: [],
+    keyValue: ''
+  }
+
+  computed = {
+    inputStyle() {
+      return 'font-size:28cpx;padding: 0 80cpx ;background:#efefef;border-radius:100cpx ;border:0cpx solid #d3d3d3;width:600cpx;';
+    },
+    menuList(){
+      let keyValue = this.keyValue
+      let t = {};
+      if(!keyValue){
+        return this.dataList[0];
+      }else{
+        this.dataList.forEach((item, index) => {
+          let name = item.siteName || '';
+          if (name == keyValue) {
+            t = item;
+          }
+        })
+        return t;
+      }
+    }
+  }
+
+  methods = {
+    handleTabTap(e){
+      console.log(e);
+      this.activeLabel = e.detail.label;
+    },
+    handleSearch(e){
+      let keyValue = e.detail;
+      this.keyValue = keyValue || '';
+    },
+    loadMenu(){
+      let that = this;
+      cml.get({
+        url: '/smallapp/mock/waterLevelList.json'
+      }).then(res => {
+        try{
+          res = JSON.parse(res)
+        }catch(e){}
+        
+        if (res.code == 0) {
+          const data = res.data;
+          that.dataList = data;
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+  created() {
+    this.loadMenu();
+  }
+}
+
+export default new Videodetails();
+</script>
+
+<style>
+.search{padding:24cpx;flex-direction:row;justify-content:space-between;align-items:center;flex:1;}
+.search-iconbtn {position:absolute;top:19cpx;}
+.search-icon-left {left:28cpx;opacity: 0.7;}
+.search-icon-right {right:30cpx;}
+.iconbtn-img{width:48cpx;height:48cpx;}
+.searchbtn{padding:20cpx;}
+.searchbtn-txt{font-size:32cpx;color:#009bdb}
+
+.normal-title{padding:10cpx 30cpx;color:#666;background:#f2f2f2}
+.normal-title-text{font-size:28cpx;}
+
+.listBox {color:#333;padding:30cpx 0;margin:0 30cpx;border-bottom:1cpx solid #efefef;}
+.txt-fontsize{font-size:28cpx;}
+.settxtColor{color:#666;}
+.videoBox {flex-direction: column;align-items: center;}
+.video{width:750cpx;text-align:center;}
+.tabtitle {border-bottom:1cpx solid #efefef;}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents":{
+          "c-tab": "cml-ui/components/c-tab/c-tab",
+          "c-tab-pane": "cml-ui/components/c-tab-pane/c-tab-pane",
+          "c-tab-pane-item": "cml-ui/components/c-tab-pane-item/c-tab-pane-item",
+          "se": "/components/search/search"
+      }
+  },
+  "wx": {
+  }
+}
+</script>

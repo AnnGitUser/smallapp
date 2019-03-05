@@ -1,0 +1,72 @@
+{
+  "mode": "history",
+  "domain": "https://www.chameleon.com",
+  "routes":[
+    {
+      "url": "/cml/h5/index",
+      "path": "/pages/index/index",
+      "name": "首页",
+      "mock": "index.php"
+    },
+    {
+      "url": "/cml/h5/logindex",
+      "path": "/pages/logindex/logindex",
+      "name": "登录"
+    },
+    {
+      "url": "/cml/h5/firstpage",
+      "path": "/pages/firstpage/firstpage",
+      "name": "封面"
+    },
+    {
+      "url": "/cml/h5/applyindex",
+      "path": "/pages/applyindex/applyindex",
+      "name": "应用中心"
+    },{
+      "url": "/cml/h5/datainfo",
+      "path": "/pages/datainfo/datainfo",
+      "name": "数据采集"
+    },
+    {
+      "url": "/cml/h5/waterask",
+      "path": "/pages/waterask/waterask",
+      "name": "水位查询"
+    },{
+      "url": "/cml/h5/waterdetails",
+      "path": "/pages/waterdetails/waterdetails",
+      "name": "水位详情"
+    },{
+      "url": "/cml/h5/video",
+      "path": "/pages/video/video",
+      "name": "视频监控"
+    },{
+      "url": "/cml/h5/videodetails",
+      "path": "/pages/videodetails/videodetails",
+      "name": "视频监控详情"
+    },{
+      "url": "/cml/h5/taskcenter",
+      "path": "/pages/taskcenter/taskcenter",
+      "name": "任务中心"
+    },{
+      "url": "/cml/h5/tool",
+      "path": "/pages/tool/tool",
+      "name": "远程控制"
+    },{
+      "url": "/cml/h5/toolcontrol",
+      "path": "/pages/toolcontrol/toolcontrol",
+      "name": "设备远程监控"
+    },{
+      "url": "/cml/h5/mycenter",
+      "path": "/pages/mycenter/mycenter",
+      "name": "我的"
+    },{
+      "url": "/cml/h5/myinfo",
+      "path": "/pages/myinfo/myinfo",
+      "name": "个人信息"
+    },{
+      "url": "/cml/h5/password",
+      "path": "/pages/password/password",
+      "name": "重置密码"
+    }
+  ]
+}

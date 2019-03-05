@@ -1,0 +1,189 @@
+<template>
+<page title="看板">
+  <view class="mainBox">
+    <view class="listBox">
+      <text class="list-txt">综合看板</text><image src="{{icondown}}" class="icon-down"></image>
+    </view>
+    <view>
+      <image class="bgimg" src="{{imgbgSrc}}"></image>
+    </view>
+    <view class="koon"></view>
+    <view class="titleBox">
+      <row  justify="start" class="listBox-ul"><image src="{{iconLeftlook}}" class="icon-left-img"></image>
+        <col class=""><text class="title-txt">分项看板</text></col>     
+      </row>
+    </view>
+    <view>
+      <carousel class="bannerBox" indicator-dots="{{true}}"  current="{{1}}" circular="{{true}}">
+        <carousel-item>
+          <view class="banner-item" >
+            <image src="{{banner1Img}}" class="banner-img"></image>
+          </view>
+        </carousel-item>
+        <carousel-item>
+          <view class="banner-item"><image src="{{banner2Img}}" class="banner-img"></image></view>
+        </carousel-item>
+        <carousel-item>
+          <view class="banner-item"><image src="{{banner3Img}}" class="banner-img"></image></view>
+        </carousel-item>
+      </carousel>
+    </view>
+    <view class="koon"></view>
+    <view class="titleBox">
+      <row  justify="start" class="listBox-ul"><image src="{{iconLeftdata}}" class="icon-left-img"></image>
+        <col class=""><text class="title-txt">数据详情</text></col>     
+      </row>
+    </view>
+    <view class="tabtitleBox">
+      <row justify="space-between">
+        <col>
+          <view class="tabtitleBox-title two-title"><text>水文情况</text></view>
+        </col>
+        <col>
+          <view class="tabtitleBox-title tabtitleBox-newset"><text>水位</text></view>
+          <view class="tabtitleBox-title "><text>0.13m</text></view>
+        </col>
+        <col>
+          <view class="tabtitleBox-title tabtitleBox-newset"><text>离地高度</text></view>
+          <view class="tabtitleBox-title"><text>1.07m</text></view>
+        </col>
+        <col>
+          <view class="tabtitleBox-title tabtitleBox-newset"><text>雨量</text></view>
+          <view class="tabtitleBox-title"><text>2.50mm</text></view>
+        </col>
+      </row>
+    </view>
+    <view class="list-control addborder">
+      <row justify="space-between">
+        <col>
+          <view class="list-setnew widthone"><text class="list-set-txt">监控时间</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">监测地点</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">水位</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">离地高度</text></view>
+        </col>
+      </row>
+    </view>
+    <view class="list-control">
+      <row justify="space-between">
+        <col>
+          <view class="list-setnew widthone"><text class="list-set-txt">2019-03-04 09:43:07</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">琴亭湖</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">0.13m</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">1.07m</text></view>
+        </col>
+      </row>
+    </view>
+    <view class="list-control">
+      <row justify="space-between">
+        <col>
+          <view class="list-setnew widthone"><text class="list-set-txt">2019-03-04 09:43:07</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">琴亭湖</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">0.13m</text></view>
+        </col>
+        <col>
+          <view class="list-setnew"><text class="list-set-txt">1.07m</text></view>
+        </col>
+      </row>
+    </view>
+  </view>
+  <nav></nav>
+</page>
+</template>
+
+<script>
+
+class Mycenter   {
+
+  data = {
+    imgbgSrc: require('../../assets/images/map.jpg'),
+    icondown: require('../../assets/images/down-w.png'),
+    iconLeftdata: require('../../assets/images/data.png'),
+    iconLeftlook: require('../../assets/images/look.png'),
+    banner1Img: require('../../assets/images/banner1.jpg'),
+    banner2Img: require('../../assets/images/banner2.jpg'),
+    banner3Img: require('../../assets/images/banner3.jpg'),
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Mycenter();
+</script>
+<style>
+.mainBox{margin-bottom:145cpx;}
+.koon{background:#f2f2f2;height:20cpx}
+.bgimg{width:750cpx;height:465cpx;}
+.icon-down{width:48cpx;height:48cpx;}
+.listBox {padding:20cpx 0;flex-direction:row;justify-content:center;background:#1983d1;}
+.list-txt{font-size:28cpx;color:#fff;}
+.titleBox {padding:15cpx;border-bottom:1cpx solid #efefef;}
+.icon-left-img{width:48cpx;height:48cpx;margin-right:10cpx}
+.title-txt{font-size:26cpx;color:#666;}
+.bannerBox {height: 300cpx;}
+.banner-item {background-color: #EBDEAA;height: 375cpx;width: 750cpx;}
+.banner-img{height: 375cpx;width: 750cpx;}
+
+.tabtitleBox{border-bottom:1cpx solid #efefef;padding:15cpx 30cpx;}
+.two-title{font-size:28cpx;color:#1983d1;font-weight:bold;}
+.tabtitleBox-title{font-size:28cpx;height:50cpx;align-items:center;justify-content:center;flex-direction:row}
+.tabtitleBox-newset{color: #6c757d;}
+
+.list-control{padding:15cpx 30cpx;}
+.addborder{border-bottom:1cpx solid #efefef;font-weight:bold}
+
+.widthone{width:300cpx}
+.list-set-txt{font-size:26cpx;}
+</style>
+
+<script cml-type="json">
+{
+  "base": { 
+    "usingComponents": {
+      "nav": "components/nav/nav"
+    }
+  },
+  "wx": {
+  }
+}
+</script>

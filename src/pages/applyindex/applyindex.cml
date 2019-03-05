@@ -1,0 +1,120 @@
+<template>
+<page title="应用中心">
+<view class="mainBox">
+  <view class="normal-title">
+    <row justify="space-between">
+      <col><text class="normal-title-text">常用功能</text></col>
+      <col><text class="normal-title-edit">编辑</text></col>
+    </row>
+  </view>  
+  <view class="menu-container">  
+    <view class="menu-item" c-bind:tap="navigateToModule('waterask')">
+      <view class="iconset"><image class="iconset-img" src="{{cutimg}}"></image></view>
+      <image src="{{menuimgone}}" class="menu-img"></image><text class="menu-text">水位查询</text>
+    </view>
+    <view class="menu-item">
+      <view class="iconset"><image class="iconset-img" src="{{cutimg}}"></image></view>
+      <image src="{{menuimgtwo}}" class="menu-img"></image><text class="menu-text">问题上报</text>
+    </view>
+    <view class="menu-item">
+      <image src="{{menuimgthree}}" class="menu-img"></image><text class="menu-text">查询预警</text>
+    </view>
+  </view>
+  <view class="normal-title">
+    <row justify="space-between">
+      <col><text>系统模块</text></col>
+    </row>
+  </view>  
+  <view class="menu-container">  
+    <view class="menu-item" c-bind:tap="navigateToModule('datainfo')">
+      <view class="iconset bgblue">+</view>
+      <image src="{{menuimgfour}}" class="menu-img"></image><text class="menu-text">数据采集</text>
+    </view>
+    <view class="menu-item" c-bind:tap="navigateToModule('video')">
+      <view class="iconset bgblue">+</view>
+      <image src="{{menuimgfive}}" class="menu-img"></image><text class="menu-text">视频监控</text>
+    </view>
+    <view class="menu-item" c-bind:tap="navigateToModule('tool')">
+      <image src="{{menuimgsix}}" class="menu-img"></image><text class="menu-text">远程控制</text>
+    </view>
+    <view class="menu-item">
+      <image src="{{menuimgseven}}" class="menu-img"></image><text class="menu-text">设备管理</text>
+    </view>
+    <view class="menu-item">
+      <image src="{{menuimgeight}}" class="menu-img"></image><text class="menu-text">预警管理</text>
+    </view>
+    <view class="menu-item">
+      <image src="{{menuimgnine}}" class="menu-img"></image><text class="menu-text">问题管理</text>
+    </view>
+  </view>
+  <nav></nav>
+</view>
+</page>
+</template>
+
+<script>
+import cml from 'chameleon-api';
+class Applyindex   {
+
+  data = {
+    menuimgone: require('../../assets/images/menu1.png'),
+    menuimgtwo: require('../../assets/images/menu2.png'),
+    menuimgthree: require('../../assets/images/menu3.png'),
+    menuimgfour: require('../../assets/images/menu4.png'),
+    menuimgfive: require('../../assets/images/menu5.png'),
+    menuimgsix: require('../../assets/images/menu6.png'),
+    menuimgseven: require('../../assets/images/menu7.png'),
+    menuimgeight: require('../../assets/images/menu8.png'),
+    menuimgnine: require('../../assets/images/menu9.png'),
+    cutimg: require('../../assets/images/jianh.png'),
+    imageSrcone: require('../../assets/images/img1.png'),
+    imageSrctwo: require('../../assets/images/img2.png'),
+    imageSrcthree: require('../../assets/images/img4.png'),
+  }
+
+  methods = {
+    navigateToModule(name){
+      let urlList = {
+        'datainfo': '/pages/datainfo/datainfo',
+        'video': '/pages/video/video',
+        'tool': '/pages/tool/tool',
+        'waterask': '/pages/waterask/waterask'
+      }
+      if(urlList[name]){
+        cml.navigateTo({
+          path: urlList[name]
+        });
+      }
+    }
+  }
+}
+
+export default new Applyindex();
+</script>
+
+<style>
+.mainBox{margin-bottom:145cpx;}
+.normal-title{padding:10cpx 30cpx;color:#666;background:#f2f2f2}
+.normal-title-text{font-size:26cpx;}
+.normal-title-edit{color:#009bdb}
+.menu-container {flex-direction:row;justify-content:flex-start;flex-wrap: wrap;}
+.menu-item{align-items:center;color:#333;padding:40cpx 0;font-size:26cpx;width:210cpx;margin:20cpx}
+.menu-text{font-size:28cpx;}
+.menu-img { width:52cpx;height:52cpx;margin-bottom:15cpx}
+.iconset{position: absolute;top:30cpx;right:30cpx;;width:32cpx;height:32cpx;border-radius: 20cpx;justify-content:center;align-items:center;;background:red;color:#fff;font-size:30cpx;font-weight: bold;}
+.iconset-img{width:32cpx;height:32cpx;margin-bottom:0;}
+.bgblue{background:#0090ff}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {
+      "nav": "components/nav/nav"
+    }
+  },
+  "wx": {
+  }
+}
+</script>
+

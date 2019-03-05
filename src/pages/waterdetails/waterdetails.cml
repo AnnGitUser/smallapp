@@ -1,0 +1,156 @@
+<template>
+  <page title="水位详情">
+    <view>
+      <view class="normal-title">
+        <row justify="space-between">
+          <col><text>基本信息</text></col>
+        </row>
+      </view>
+      <view class="">
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>日期</text></col>     
+            <col class=""><text>{{day}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>站点名称</text></col>     
+            <col class=""><text>{{dataList[0].siteName}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>检测设备</text></col>     
+            <col class=""><text>{{dataList[0].testDevice}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>检测时间</text></col>     
+            <col class=""><text>{{hour}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>检测值</text></col>     
+            <col class=""><text>{{dataList[0].value}}</text></col>     
+          </row>
+      </view> 
+      <view class="normal-title">
+        <row justify="space-between">
+          <col><text>其他信息</text></col>
+        </row>
+      </view>
+      <view class="">
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>离地面高度</text></col>     
+            <col class=""><text>{{dataList[0].height}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>检测点经度</text></col>     
+            <col class=""><text>{{dataList[0].longitude}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>检测点纬度</text></col>     
+            <col class=""><text>{{dataList[0].latitude}}</text></col>     
+          </row>
+          <row  justify="space-between" class="listBox">
+            <col class="settxtColor"><text>详细地址</text></col>     
+            <col class=""><text>{{dataList[0].address}}</text></col>     
+          </row>
+      </view> 
+    </view>
+  </page>
+</template>
+
+<script>
+import cml from 'chameleon-api';
+class Waterdetails   {
+
+  data = {
+    dataList: []
+  }
+
+  computed = {
+    day(){
+      let date = this.dataList[0] && new Date(this.dataList[0].time) || new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth()>9?date.getMonth().toString():'0' + (date.getMonth()+1);
+      let day = date.getDate()>9?date.getDate().toString():'0' + date.getDate();
+      
+      return [year, month, day].join('-');
+    },
+    hour(){
+      let date = this.dataList[0] && new Date(this.dataList[0].time) || new Date();
+      let hour = date.getHours()>9?date.getHours().toString():'0' + date.getHours();
+      let minute = date.getMinutes()>9?date.getMinutes().toString():'0' + date.getMinutes();
+      let second = date.getSeconds()>9?date.getSeconds().toString():'0' + date.getSeconds();
+      
+      return [hour, minute, second].join(':');
+    }
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate(res) {
+    let that = this;
+    let id = res.id;
+    if(!id) return;
+    cml.get({
+      url: '/smallapp/mock/waterLevelList.json'
+    }).then(res => {
+      try{
+        res = JSON.parse(res)
+      }catch(e){}
+      
+      if (res.code == 0) {
+        let t = [];
+        const data = res.data;
+        data.forEach((item, index) => {
+          if (item.id == id) {
+            t.push(item);
+          }
+        })
+        that.dataList = t;
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+ 
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  }
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Waterdetails();
+</script>
+
+<style>
+.normal-title{padding:10cpx 30cpx;color:#666;background:#f2f2f2}
+.normal-title text{font-size:26cpx;}
+.listBox {padding:30rpx 0;margin:0 30rpx;border-bottom:1px solid #efefef;}
+.listBox text{font-size:28cpx;color:#333;}
+.listBox  .settxtColor text{color:#666;}
+.listBox .icon-right{opacity: 0.8;filter: alpha(opacity=80);position:absolute;top:10cpx;right:0cpx;width:80cpx;height:80cpx;justify-content:center;align-items:center;}
+.listBox .icon-right:hover{opacity:1;filter: alpha(opacity=100);}
+.listBox .icon-right image{width:48cpx;height:48cpx;}
+
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+  }
+}
+</script>

@@ -1,0 +1,63 @@
+<template>
+<page title="关于我们">
+    <view class="aboutBox">
+      <view><image class="aboutimg" src="{{imgaboutSrc}}"></image></view>
+      <text class="textset">中海创科技的前身是立足于做工业自动化与信息化的“福建中海创集团有限公司” ， 通过剥离重组中海创旗下拥有的核心技术和优质资产， 加速优势技术的市场开拓， 力争尽快把“中海创科技” 打造成为工业互联网的独角兽企业。 </text>
+   </view>
+</page>
+</template>
+
+<script>
+
+class Mycenter   {
+
+  data = {
+    imgaboutSrc: require('../../assets/images/about.png'),
+  }
+
+  computed = {
+  }
+
+  watch  = {
+  }
+
+  methods = {
+  }
+
+  beforeCreate() {
+  }
+
+  created() {
+  }
+
+  beforeMount() {
+  }
+
+  mounted() {
+  } 
+
+  beforeDestroy() {
+  }
+
+  destroyed() {
+  }
+}
+
+export default new Mycenter();
+</script>
+<style>
+.koon{background:#f2f2f2;height:20cpx}
+.aboutimg{width:750cpx;height:350cpx;}
+.aboutBox{justify-content:center;align-items:center;}
+.textset{padding:10cpx 30cpx;font-size:28cpx;line-height:52cpx;text-indent:2em}
+</style>
+
+<script cml-type="json">
+{
+  "base": {
+    "usingComponents": {}
+  },
+  "wx": {
+  }
+}
+</script>
